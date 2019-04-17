@@ -178,11 +178,12 @@ public class FormulacioInscripciones extends javax.swing.JInternalFrame {
 
     private void jrInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrInscriptasActionPerformed
         jrNoInscripta.setSelected(false);
+        cargarDatosInscriptas();
     }//GEN-LAST:event_jrInscriptasActionPerformed
 
     private void jrNoInscriptaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrNoInscriptaActionPerformed
         jrInscriptas.setSelected(false);
-        
+        cargarDatosNoInscriptas();
     }//GEN-LAST:event_jrNoInscriptaActionPerformed
     public void armarCabeceraTabla(){
     ArrayList<Object> columnas = new ArrayList<Object>();
@@ -209,7 +210,9 @@ public class FormulacioInscripciones extends javax.swing.JInternalFrame {
     alumno =(Alumno)jcAlumno.getSelectedItem();
     
     List<Materia> listaMaterias = cursada.obtenerMateriasCursadas(alumno.getId());
-    for(Materia m:listaMaterias){modelo.addRow(new Object []{m.getId(),  m.getNombre()});}
+    for(Materia m:listaMaterias){
+        
+        modelo.addRow(new Object []{m.getId(),  m.getNombre()});}
      
     
     }
