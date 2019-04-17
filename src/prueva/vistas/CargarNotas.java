@@ -5,17 +5,53 @@
  */
 package prueva.vistas;
 
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import prueva.mdoelo.Alumno;
+import prueva.mdoelo.AlumnoData;
+import prueva.mdoelo.Conexion;
+import prueva.mdoelo.Cursada;
+import prueva.mdoelo.CursadaData;
+import prueva.mdoelo.Materia;
+
 /**
  *
  * @author programador
  */
 public class CargarNotas extends javax.swing.JInternalFrame {
+private DefaultTableModel modelo;
+private ArrayList<Cursada> listaCursada;
+private ArrayList<Materia> listaMateria;
+private CursadaData cursadaData;
+private AlumnoData alumnoData;
+private ArrayList<Alumno> listaAlumno;
+private Conexion conexion;
+
 
     /**
      * Creates new form CargarNotas
      */
     public CargarNotas() {
+    try {
         initComponents();
+        
+        conexion = new Conexion();
+        
+        modelo = new DefaultTableModel();
+        
+        cursadaData = new CursadaData(conexion);
+        
+        listaCursada = (ArrayList)cursadaData.obtenerCursadas();
+        alumnoData = new AlumnoData(conexion);
+        listaAlumno = (ArrayList)alumnoData.obtenerAlumnos();
+              
+        
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(CargarNotas.class.getName()).log(Level.SEVERE, null, ex);
+    }
+        
     }
 
     /**
@@ -31,17 +67,15 @@ public class CargarNotas extends javax.swing.JInternalFrame {
         jLabel2 = new javax.swing.JLabel();
         jMENUDESPLEGABLE = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jtCursada = new javax.swing.JTable();
+        jGUARDAR = new javax.swing.JButton();
+        jCANCELAR = new javax.swing.JButton();
 
         jLabel1.setText("Cargar Notas");
 
         jLabel2.setText("Alumnos");
 
-        jMENUDESPLEGABLE.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jtCursada.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,14 +86,14 @@ public class CargarNotas extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jtCursada);
 
-        jButton1.setText("Guardar");
+        jGUARDAR.setText("Guardar");
 
-        jButton2.setText("Cancelar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        jCANCELAR.setText("Cancelar");
+        jCANCELAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                jCANCELARActionPerformed(evt);
             }
         });
 
@@ -83,9 +117,9 @@ public class CargarNotas extends javax.swing.JInternalFrame {
                 .addContainerGap(19, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(jGUARDAR)
                 .addGap(43, 43, 43)
-                .addComponent(jButton2)
+                .addComponent(jCANCELAR)
                 .addGap(49, 49, 49))
         );
         layout.setVerticalGroup(
@@ -101,26 +135,26 @@ public class CargarNotas extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jGUARDAR)
+                    .addComponent(jCANCELAR))
                 .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jCANCELARActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCANCELARActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jCANCELARActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jCANCELAR;
+    private javax.swing.JButton jGUARDAR;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JComboBox<String> jMENUDESPLEGABLE;
+    private javax.swing.JComboBox<Alumno> jMENUDESPLEGABLE;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jtCursada;
     // End of variables declaration//GEN-END:variables
 }
